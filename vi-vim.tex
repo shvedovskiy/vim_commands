@@ -1,0 +1,386 @@
+\documentclass[a4paper,10pt, twocolumn]{article}
+\usepackage{lscape}		
+
+\usepackage{cmap}						
+\usepackage[T2A]{fontenc}				
+\usepackage[utf8]{inputenc}				
+\usepackage[english, russian]{babel}	
+
+\usepackage[math]{pscyr}						
+\usepackage{amsthm,amsfonts,amsmath,amssymb,amscd} 
+\usepackage{indentfirst}
+
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{keystroke}
+
+\usepackage{longtable}					
+\usepackage{multirow,makecell,array}	
+
+\usepackage[singlelinecheck=off,center]{caption}	
+
+\usepackage{soul}									
+\usepackage{cite}
+
+\usepackage{geometry} 
+	\geometry{top=20mm}
+	\geometry{bottom=20mm}
+	\geometry{left=20mm}
+	\geometry{right=20mm}
+
+\usepackage[plainpages=false,pdfpagelabels=false]{hyperref}
+\definecolor{linkcolor}{rgb}{0.9,0,0}
+\definecolor{citecolor}{rgb}{0,0.6,0}
+\definecolor{urlcolor}{rgb}{0,0,1}
+\hypersetup{
+    colorlinks, linkcolor={linkcolor},
+    citecolor={citecolor}, urlcolor={urlcolor}
+}
+
+\usepackage{graphicx}		
+	\graphicspath{{images/}}	
+
+\sloppy			
+\clubpenalty=10000		
+\widowpenalty=10000		
+
+\newcommand*{\cod}[1]{\texttt{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\section{Базовые команды}
+
+\subsection{Перемещения}
+\begin{enumerate}
+    \item $(n)$\cod{h} --- влево на 1 символ
+    \item $(n)$\cod{l} --- вправо на 1 символ
+    \item $(n)$\cod{j} --- вниз на 1 символ
+    \item $(n)$\cod{k} --- вверх на 1 символ
+\end{enumerate}
+
+\subsection{Перемещения по слову и строке}
+\begin{enumerate}
+    \item $(n)$\cod{w} ($(n)$\cod{W}) --- в начало следующего слова
+    \item $(n)$\cod{e} ($(n)$\cod{E}) --- в конец текущего слова
+    \item $(n)$\cod{b} ($(n)$\cod{B}) --- в начало текущего слова
+    \item \cod{\$} --- в конец строки
+    \item \cod{0} --- в начало строки
+    \item \cod{\^} --- на 1-й непустой символ строки
+    \item \Enter --- на 1-й непустой символ след. строки
+\end{enumerate}
+
+\subsection{Перемещения по экранам}
+\begin{enumerate}
+    \item \Ctrl + \cod{F} --- вперед на 1 экран 
+    \item \Ctrl + \cod{B} --- назад на 1 экран
+    \item \Ctrl + \cod{D} --- вперед на $1/2$ экрана
+    \item \Ctrl + \cod{U} --- назад на $1/2$ экрана
+    \item \Ctrl + \cod{E} --- на 1 строку вверх (без перемещения курсора)
+    \item \Ctrl + \cod{Y} --- на 1 строку вниз (без перемещения курсора)
+    \item \cod{z} + \Enter --- переместить текущ. строку в верх экрана
+    \item \cod{z.} --- переместить текущ. строку в центр экрана
+    \item \cod{z-} --- переместить текущ. строку в низ экрана
+\end{enumerate}
+Сочетаются с (\cod{c}), (\cod{d}), (\cod{y}):
+\begin{enumerate}
+    \item \cod{H} --- переход в начало экрана
+    \item $(n)$\cod{H} --- на $n$ строк ниже верхней
+    \item \cod{L} --- переход в конец экрана
+    \item $(n)$\cod{L} --- на $n$ строк выше нижней
+    \item \cod{M} --- переход в середину экрана
+\end{enumerate}
+
+\subsection{Перемещения по тексту}
+Сочетаются с (\cod{c}), (\cod{d}), (\cod{y}), (\cod{e}), (\cod{E}), кроме \cod{gg}, \cod{G}:
+\begin{enumerate}
+    \item $(n)$\cod{(}, \cod{)} --- в начало текущего/след. предложения
+    \item $(n)$\cod{\{}, \cod{\}} --- в начало текущего/след. абзаца
+    \item $(n)$\cod{[[}, \cod{]]} --- в начало текущего/след. раздела
+    \item \cod{gg} --- в начало файла
+    \item \cod{G} --- в конец файла
+    \item $(n)$\cod{G} ($n$ +\Ctrl + \cod{G})--- на строку $n$\
+    \item \Ctrl + \cod{G} --- узнать номер строки
+    \item $(n)$\cod{+} --- на 1-й символ след. строки
+    \item $(n)$\cod{-} --- на 1-й символ предыдущей строки
+\end{enumerate}
+
+
+\subsection{Поиск}
+\begin{enumerate}
+    \item $(n)$\cod{f}\textit(символ) --- $n$-е вхождение символа в строке
+    \item(\cod{d}, \cod{c}, \cod{y})\cod{/}\textit(текст) --- поиск фразы в документе
+    \item(\cod{d}, \cod{c}, \cod{y})\cod{?}\textit(текст) --- поиск фразы назад
+    \item \cod{n} --- повторить поиск (в том же направлении)
+    \item \cod{N} --- повторить поиск (в обратном направлении)
+    \item \cod{/} + \Enter --- повторить вперед от текущего направления
+    \item \cod{?} + \Enter --- повторить назад от текущего направления
+    \item \cod{\%} --- поиск парного символа (скобки)
+    \item $(n)$\cod{*} --- поиск следующего слова под курсором
+    \item $(n)$\cod{\#} --- поиск слова под курсором в обратн. напр.
+\end{enumerate}
+
+\subsection{Поиск в текущей строке}
+Сочетаются с (\cod{c}), (\cod{d}), (\cod{y}), кроме \cod{;}, \cod{'}:
+\begin{enumerate}
+    \item $(n)$\cod{f}(x) --- следующее ($n$-е) вхождение x
+    \item $(n)$\cod{F}(x) --- предыдущее ($n$-е) вхождение x
+    \item $(n)$\cod{t}(x) --- символ перед след. вхождением x
+    \item $(n)$\cod{T}(x) --- символ перед пред. вхождением x
+    \item \cod{;} --- повторить поиск в пределах строки
+    \item \cod{'} --- повторить поиск в обратном направлении
+\end{enumerate}
+
+\subsection{Вставка и добавление текста}
+\begin{enumerate}
+    \item \cod{i} --- начать вставлять текст на место курсора
+    \item \cod{I} --- вставлять текст в начале строки
+    \item $(n)$\cod{i} --- вставить текст $n$
+раз
+    \item \cod{p} (\cod{P}) --- вставить строку из буфера
+    \item \cod{a} --- добавить текст после курсора
+    \item \cod{A} --- добавить текст в конце строки
+    \item $(n)$\cod{o} --- создать пустую строку под курсором
+    \item $(n)$\cod{O} --- создать пустую строку над курсором
+    \item \cod{"}\textit{(bufname)}\cod{p} --- вставка из определенного буфера
+\end{enumerate}
+
+\subsection{Замена текста}
+\begin{enumerate}
+    \item \cod{r} --- заменить имеющийся символ
+    \item \cod{R} --- заменить более одного символа
+    \item $(n)$\cod{cw} --- замена слова после курсора
+    \item $(n)$\cod{cb} --- замена слова до курсора
+    \item \cod{c\$} (\cod{C}) --- замена до конца строки
+    \item \cod{c0} --- замена от начала строки
+    \item $(n)$\cod{cc} --- замена всей строки
+    \item \cod{c\%} --- от курсора до конца блока скобок
+    \item $(n)$\cod{~} --- смена регистра букв
+    \item $(n)$\cod{s} --- заменить неск. символов
+    \item $(n)$\cod{S} --- удалить строку и вставить текст
+    \item $(n)$\cod{J} --- объединить строку со следующей
+\end{enumerate}
+
+\subsection{Удаление текста}
+Считается вырезанием в буфер обмена:
+\begin{enumerate}
+    \item $(n)$\cod{x} --- удалить символ на курсоре
+    \item $(n)$\cod{X} --- удалить символ перед курсором
+    \item $(n)$\cod{dw} --- удалить слово после курсора
+    \item \cod{d\$} (\cod{D}) --- строку после курсора
+    \item \cod{d0} --- удалить строку до курсора
+    \item $(n)$\cod{de} --- от курсора до начала другого слова
+    \item $(n)$\cod{db} --- удалить слово до курсора
+    \item $(n)$\cod{dd} --- удалить всю строку
+    \item \cod{di} --- удалить внутри скобок
+    \item \cod{d\%} --- удалить блок со скобками
+    \item $(n)$\cod{d}(\cod{h}, \cod{l}, \cod{j}, \cod{k}) --- с перемещением посимвольно
+    \item \cod{"}\textit{(bufname)}$(n)$\cod{d}(command) --- удаление в именованные буферы
+\end{enumerate}
+
+\subsection{Копирование текста}
+\begin{enumerate}
+    \item $(n)$\cod{yw} ($(n)$\cod{yW}) --- слово после курсора
+    \item $(n)$\cod{yb} ($(n)$\cod{yB}) --- скопировать слово до курсора
+    \item $(n)$\cod{yy} ($(n)$\cod{Y}) --- скопировать всю строку
+    \item \cod{y\$} --- скопировать строку после курсора
+    \item \cod{y0} --- скопировать строку до курсора
+    \item $(n)$\cod{ye} --- скопировать до начала другого слова
+    \item \cod{yi} --- скопировать внутри скобок
+    \item \cod{y\%} --- скопировать блок со скобками
+    \item $(n)$\cod{yl} (\cod{yh}) --- скопировать символ
+    \item \cod{"}\textit{(bufname)}$(n)$\cod{y}(command) --- копирование в определенный буфер (от a до z)
+\end{enumerate}
+
+\subsection{Повторение и отмена команд}
+\begin{enumerate}
+    \item $(n)$\cod{.} --- повторение команды
+    \item $(n)$\cod{u} --- отмена команды 
+    \item \cod{U} --- отмена изменений в строке
+    \item \Ctrl + \cod{R} --- откат отката
+    \item \cod{"}\textit{(bufnum)}\cod{p} --- восстановить из буферов
+    \item \cod{"1pu.u.u}\dots --- перебор буферов один за другим (+ \cod{u.}) 
+\end{enumerate}
+
+\subsection{Отметка места}
+\begin{enumerate}
+    \item \cod{m}\textit{x} --- поставить метку \textit{x} сюда
+    \item \cod{'}\textit{x} --- поставить курсор на 1-й символ строки с меткой
+    \item \cod{`}\textit{x} --- поставить курсор на помеченный символ
+    \item \cod{``} --- поставить курсор на предыдущую метку (место)
+    \item \cod{''} --- поставить курсор на строку предыдущей метки (места)
+\end{enumerate}
+
+
+\subsection{Команды открытия файла}
+\begin{enumerate}
+    \item \cod{\$ vi} \textit{file} --- открыть файл
+    \item \cod{\$ vi +}$n$ \textit{file} --- открыть файл на строке $n$
+    \item \cod{\$ vi +} \textit{file} --- открыть файл на последней строке
+    \item \cod{\$ vi +/}\textit{text file} --- открыть файл на вхождении \textit{text}
+    (если в шаблоне пробелы, то шаблон заключается в кавычки)
+    \item \cod{\$ vi -R} \textit{file} --- открыть файл в режиме чтения
+\end{enumerate}
+
+\newpage
+\section{Команды редактора \cod{ex}}
+ 
+\subsection{Базовые команды}
+\begin{enumerate}
+    \item \cod{:}$(n)$\cod{p} --- показать $n$-ю строку
+    \item \cod{:}$(n,m)$\cod{p} --- показать диапазон строк
+    \item \cod{:vi} --- открыть редактор vi
+    \item \cod{:delete} (\cod{:d}) --- удаление строк
+    \item \cod{:move} (\cod{:m}) --- перемещение строк
+    \item \cod{:copy} (\cod{:co}, \cod{:t}) --- копирование строк
+    \item \cod{:}$(n,m)$\cod{d,m,t} --- действия с диапазоном строк
+    \item \cod{:=} --- вывести полное число строк
+    \item \cod{:.=} --- вывести номер текущей строки
+    \item \cod{:/}(text)\cod{/=} --- вывести номер строки шаблона
+\end{enumerate}
+
+\subsection{Адресация строк}
+\begin{enumerate}
+    \item \cod{:.,\$ d} --- удалить с текущей строки до конца
+    \item \cod{:\%d} --- удалить все строки в файле
+    \item \cod{:}$(n)$\cod{,.m\$} --- переместить строки с $n$ до текущей в конец файла
+    \item \cod{:\%t\$} --- скопировать все строки и поместить их в конец
+    \item \cod{:.,.}$\pm(n)$\cod{d} --- удалить строки с текущей по $n$
+    \item \cod{:}$(n)$\cod{,\$m.-}$(m)$ --- переместить строки с $m$ до конца на строку, выше текущей на $n$
+    \item \cod{:.,+}$(n)$\cod{\#} --- отобразить номера строк с текущей до $n$-й
+    \item \cod{:.-,.+t0} --- копировать строки от строки выше курсора до строки ниже него в начало файла
+\end{enumerate}
+
+\subsection{Шаблоны поиска}
+\begin{enumerate}
+    \item \cod{:/}(text)\cod{/d} --- удалить строку с шаблоном
+    \item \cod{:/}(text)\cod{/+d} --- удалить строку ниже строки с шаблоном
+    \item \cod{:/}(text1)\cod{/,/}(text2)\cod{/d} --- удалить от строки с 1-м шаблоном до строки со 2-м
+    \item \cod{:.,/}(text)\cod{/m}$(n)$ --- переместить текст от текущей строки до строки $n$
+\end{enumerate}
+
+\subsection{Глобальный поиск}
+\begin{enumerate}
+    \item \cod{:g/}(text) --- последнее вхождение шаблона в файле
+    \item \cod{:g/}(text)\cod{/p} --- найти и вывести все строки с шаблоном
+    \item \cod{:g!/}(text)\cod{nu}--- найти и вывести все строки с их номерами, не содержащие шаблон
+    \item \cod{:}$(n,m)$]\cod{g/}(text)\cod{/p} --- вывести все строки с шаблонос с номерами из диапазона
+\end{enumerate}
+
+\subsection{Копирование одного файла в другой}
+\begin{enumerate}
+    \item \cod{:}$(n)$\cod{read} \textit{file} --- считать содержимое другого файла в строку $n$ (можно \cod{\$} или \cod{0})
+    \item \cod{:/}(text)\cod{/read} \textit{file} --- поместить файл в текущий после строки с шаблоном 
+\end{enumerate}
+
+\subsection{Глобальная замена}
+\begin{enumerate}
+    \item \cod{:s/}\textit{old}\cod{/}\textit{new} --- заменить первое вхождение текста
+    \item \cod{:s/}\textit{old}\cod{/}\textit{new}\cod{/g} --- заменить во всех вхождениях
+    \item \cod{:}$(n,m)$\cod{s/}\textit{old}\cod{/}\textit{new}\cod{/g} --- заменить во всех вхождениях в диапазоне строк
+    \item \cod{:1, \$s/}\textit{old}\cod{/}\textit{new}\cod{/g} --- замена во всем файле
+    \item \cod{:}$(n,m)$\cod{s/}\textit{old}\cod{/}\textit{new}\cod{/gc} --- спрашивать при каждой замене
+    \item \cod{:g/}(text)\cod{/s/}\textit{old}\cod{/}\textit{new}\cod{/g} --- поиск и замена по разным шаблонам
+\end{enumerate}
+
+\subsection{Поиск по регулярным выражениям: метасимволы}
+\begin{enumerate}
+    \item \cod{.} --- одиночный символ (и пробел)
+    \item \cod{*} --- повторение любого кол-ва раз символа перед или после *
+    \item \cod{\^} --- если в начале РВ, то требуется, чтобы последующее РВ находилось в начале строки; если не в начале РВ, то обозначает себя же; если стоит в начале скобок \cod{[ ]}, то меняет их значение на обратное (все, кроме этих)
+    \item \cod{\$} --- если в конце РВ, то требуется, чтобы предшествующее РВ было в конце строки; не в конце РВ означает себя же
+    \item \cod{$\backslash$} --- последующий спец. символ должен рассматриваться как обычный
+    \item \cod{[ ]} --- соответствует любому из символов в скобках; диапазон задается тире; можно размещать несколько диапазонов вместе
+    В скобках необходимо экранизировать лишь \cod{$\backslash$}, \cod{-} и \cod{]}.
+    \item \cod{$\backslash$( $\backslash$)} --- сохраняет шаблон между ними во временном буфере (9 штук --- $\backslash$1\dots$\backslash$9)
+    \item \cod{$\backslash$< $\backslash$>} --- символы в начале или в конце слова; можно исп. не в паре; использование сразу обоих (конструкция <<только если шаблон является словом целиком>>) приведет к поиску текстов, окруженных всем, чем угодно
+    \item \cod{~} --- РВ, использовавшееся в последнем поиске; работает только при обычном поиске \cod{/}
+\end{enumerate}
+    
+\subsection{Метасимволы в строках замены}
+При глобальной замене метасимволы РВ имеют особое значение только в строке поиска (первой части) команды. Поэтому следует определить регулируемую строку замены.
+\begin{enumerate}
+    \item \cod{$\backslash$n} --- заменяется текст, соотв. $n$-му буферу
+    \item \cod{$\backslash$} --- требуется, чтобы след. спец. символ рассматривался как обычный
+    \item \cod{\&} --- находясь в строке замены, заменяется на весь текст, соотв. строке поиска
+    \item \cod{~} --- найденная строка заменяется на текст, опред. в последней команде подстановки
+    \item \cod{$\backslash$u, $\backslash$l} --- требуется, чтобы след. символ в строке заменя исправлялся на прописной или строчный
+    \item \cod{$\backslash$U, $\backslash$L, $\backslash$e, $\backslash$E} --- все след. символы преобр. в прописные или строчные, пока не встретится конец строки замены или \cod{$\backslash$e, $\backslash$E}.
+\end{enumerate}
+
+\section{В программировании}
+\subsection{Отступы}
+\begin{enumerate}
+    \item \Ctrl + \cod{T} --- перевести курсор на след. уровень отступа
+    \item \Ctrl + \cod{D} --- вернуть курсор на пред. уровень отступа
+    \item \cod{\^} + \Ctrl + \cod{D} --- курсор назад на начало текущей строки; следующая начнется на автоматическом отступе; полезно на директивах препроцессора
+    \item \cod{0} + \Ctrl + \cod{D} --- переместить курсор на начало строки со сбросом уровней отступа
+    \item $(n)$\cod{>>} -- сместить $n$ строк на 8 пробелов вправо
+    \item $(n)$\cod{<<} -- сместить $n$ строк на 8 пробелов влево
+\end{enumerate}
+
+\newpage
+\section{Команды Vim}
+\subsection{Варианты запуска Vim}
+\begin{enumerate}
+    \item \cod{vim -b} \textit{file} --- редактирование в двоичном режиме
+    \item \cod{vim -c}\textit{ command file} --- выполнится команда редактора \cod{ex}
+    \item \cod{vim -C} \textit{file} --- запуск в режиме совместимости с \cod{vi}
+    \item \cod{vim -d} (\cod{vimdiff}) \textit{file} --- режим поиска различий \cod{diff}
+    \item \cod{vim -E} \textit{file} --- улучшенный режим \cod{ex} (расширенные РВ и т.д.)
+    \item \cod{vim -g} \textit{file} --- графический режим
+    \item \cod{vim -m} \textit{file} --- отключение режима записи: нельзя изменять буферы
+    \item \cod{vim -o} (\cod{vim -O}) \textit{file} --- открывать все файлы в отдельных окнах (при \cod{-O} окна разделены вертикально)
+    \item \cod{vim -z} (\cod{rvim}) \textit{file} --- ограниченный режим (нет доступа к системным функциям и внешним интерфейсам)
+\end{enumerate}
+
+\subsection{Команды перемещения}
+\begin{enumerate}
+    \item \Ctrl + \End (\textit{count}) --- перейти в конец файла (на последний символ строки \textit{count})
+    \item \Ctrl + \Home --- перейти на 1-й непробельный символ 1-ой строки
+    \item \textit{count}\cod{\%} --- перейти на соотв. процент файла; курсор помещается на 1-й печатаемый символ
+    \item :\cod{:go} $n$ ($n$ \cod{go}) --- перейти на $n$-й байт в буфере 
+\end{enumerate}
+
+\subsection{Визуальный режим}
+\begin{enumerate}
+    \item \cod{v} --- включение режима
+    \item $(n)$\cod{aw} ($(n)$\cod{aW}) --- выделить $n$ слов и пробелов (если они есть); \cod{w} ищет слова, разделеннные знаками препинания, \cod{W} --- разделенные пробелами
+    \item $(n)$\cod{iw} ($(n)$\cod{iW}) --- выбрать$n$ слов; \cod{w} ищет слова, ограниченные знаками препинания, \cod{W} --- пробелами
+    \item \cod{as}, \cod{is} --- добавить предложение или внутреннее предложение (сам текст без окружающих его непечатаемых и т.п. символов)
+    \item \cod{ap}, \cod{ip} --- добавить абзац или внутренний абзац
+\end{enumerate}
+
+\subsection{Расширенные регулярные выражения}
+\begin{enumerate}
+    \item \cod{$\backslash$|} --- указывает на варианты слов
+    \item \cod{$\backslash$+} --- соотв. одному или более предшествующим РВ
+    \item \cod{$\backslash$=} --- соотв. одному или ни одному из предшествующих РВ
+    \item \cod{$\backslash$\{}\textit{n,m}\cod{\}} --- соотв. макс. кол-ву предшествующих РВ в диапазоне \textit{n}--\textit{m} (от 0 до 32000)
+    \item \cod{$\backslash$\{}\textit{n}\cod{\}} --- соотв. $n$ предшествующим РВ
+    \item \cod{$\backslash$\{}\textit{n,}\cod{\}} --- соотв. как можно большему кол-ву предшествующих РВ, но не меньше $n$
+    \item \cod{$\backslash$\{}\textit{,m}\cod{\}} --- соотв. как можно большему кол-ву предшествующих РВ, в диапазоне $0$--$m$
+    \item \cod{$\backslash$\{}\textit{-n,m}\cod{\}} --- соотв. минимальному кол-ву предществующих РВ, в диапазоне $n$--$m$ 
+    \item \cod{$\backslash$\{}\textit{-n}\cod{\}} --- соотв. $n$ предшествующим РВ
+    \item \cod{$\backslash$\{}\textit{-n,}\cod{\}} --- соотв. наименьшему кол-ву предшествующих РВ, но не меньше $n$
+    \item \cod{$\backslash$\{}\textit{-,m}\cod{\}} --- соотв. наименьшему кол-ву предшествующих РВ, в диапазоне $0$--$m$ 
+    \item \cod{$\backslash$i} --- соотв. любому символу идентификатора согласно опции \cod{isident}
+    \item \cod{$\backslash$I} --- как \cod{$\backslash$i}, но исключая цифры
+    \item \cod{$\backslash$k} --- соотв. любому ключевому слову согласно опции \cod{iskeyword}
+    \item \cod{$\backslash$K} --- как \cod{$\backslash$k}, но исключая цифры
+    \item \cod{$\backslash$f} --- соотв. любому символу имени файла согласно опции \cod{isfname}
+    \item \cod{$\backslash$F} --- как \cod{$\backslash$f}, но исключая цифры
+    \item \cod{$\backslash$p} --- соотв. любому печатаемому символу согласно опции \cod{isprint}
+    \item \cod{$\backslash$P} --- как \cod{$\backslash$p}, но исключая цифры
+    \item \cod{$\backslash$s} --- соотв. любому пробельному символу
+    \item \cod{$\backslash$S} --- соотв. всему, что не явл. пробелом или табуляцией 
+    \item \cod{$\backslash$b} --- символ Backspace
+    \item \cod{$\backslash$e} --- \Esc
+    \item \cod{$\backslash$r} --- возврат каретки
+    \item \cod{$\backslash$t} --- \Tab (табуляция)
+    \item \cod{~} --- соотв. последней использовавшейся строке замены
+    \item \cod{$\backslash$(...$\backslash$)} --- группировка для \cod{*}, \cod{$\backslash$+} и \cod{$\backslash$=}, также делает доступным подтекст в команде замены ($\backslash$1 и т.д.)
+    \item \cod{$\backslash$1} --- соотв. той же строке, кот. соотв. первому подвыражению в \cod{$\backslash$(...$\backslash$)}
+\end{enumerate}
+
+\end{document}
